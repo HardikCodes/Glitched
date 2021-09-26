@@ -1,3 +1,4 @@
+alert('the update has been delayed because of technical issues')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const body = document.querySelector('body')
