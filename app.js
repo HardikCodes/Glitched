@@ -1,13 +1,50 @@
-alert('the update has been delayed because of technical issues')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const body = document.querySelector('body')
 const clickAudio = document.getElementById('click-sound')
+const firstMessageFromRealWorld = document.getElementById('first message')
+const secondMessage = document.getElementById('second-meassage')
+const thirdMessage = document.getElementById('third-message')
+const fourthMessage = document.getElementById('4th-message')
+const fifthMessage = document.getElementById('5th-message')
+const sixthMessage = document.getElementById('6th-message')
 let playAudio = confirm('Would you like to play with sound effects')
+let invinceibleMode = false
 
+firstMessageFromRealWorld.style.display='block'
 
-let time = 0
-let spawnTimeCalc 
+setTimeout(() =>{
+    setTimeout(() => {
+        monsters.forEach((index)=> {
+            monsters.splice(index,1)
+        });
+        cancelAnimationFrame(animationId)
+
+        secondMessage.style.display = 'block'
+        setTimeout(() => {
+            secondMessage.style.display = 'none'
+            thirdMessage.style.display = 'block'
+            setTimeout(() => {
+                thirdMessage.style.display ='none'
+                fourthMessage.style.display ='block'
+                setTimeout(() => {
+                    fourthMessage.style.display ='none'
+                    fifthMessage.style.display = 'block'
+                    setTimeout(() =>{
+                        fifthMessage.style.display ='none'
+                        sixthMessage.style.display ='block'
+                        setTimeout(() => {
+                            powerUpMode = true
+                            animate()
+                            sixthMessage.style.display ='none'
+                        })
+                    },20000)
+                },10000)
+            },10000)
+        },5000)
+    },300000)
+    firstMessageFromRealWorld.style.display = 'none'
+    let time = 0
 let powerUpMode = false
 let shieldPwrUp = false
 let tripleShootPwrUp = false
@@ -107,6 +144,7 @@ const player = new Player(x,y,10,'white')
 const playerPowerUp = new Player(x,y,10,'blue')
 const tripleShooterPlayer = new Player(x,y,10,'green')
 const sheildPlayer = new Player(x,y,10,'rgb(0, 255, 255)')
+const invinciblePlayer = new Player(x,y,10,'#FFD700')
 
 const bullets = []
 const specialBullets = []
@@ -140,6 +178,7 @@ function spawnMonsters() {
 }
 let animationId
 function animate(){
+
     animationId = requestAnimationFrame(animate)
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
@@ -155,6 +194,9 @@ function animate(){
         sheildPlayer.draw()
     } 
 
+    if(invinceibleMode === true){
+        invinciblePlayer.draw()
+    }
     monsters.forEach((monster,index) => {
         monster.update()
 
@@ -164,7 +206,10 @@ function animate(){
             if(shieldPwrUp === true){
                 shieldPwrUp = false 
                 monsters.splice(index,1)
-            }else{
+            }else if (invinceibleMode === true){
+                monsters.splice(index,1)
+            }
+            else{
                 cancelAnimationFrame(animationId)
             }
         }
@@ -264,10 +309,6 @@ if(i >=3){
     )**/
     setInterval(() => {
         time += 0.1
-        if(time == 1000){
-            cancelAnimationFrame(animationId)
-            alert('Congratulations! Mission succeded! You have beet the Hacker')
-        }
     },100)
 
     setInterval(() => {
@@ -315,3 +356,6 @@ if(i >=3){
 
 animate()
 spawnMonsters()
+},18000)
+
+
