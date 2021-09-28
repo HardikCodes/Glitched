@@ -1,8 +1,10 @@
 if(storyMode === false){
 
-let powerUpMode = false
-let shieldPwrUp = false
-let tripleShootPwrUp = false
+    let clearHighScore = confirm('Would you like to clear your high score. Your current high score is'+ parseInt(localStorage.getItem('high score')))
+
+    if(clearHighScore === true){
+        localStorage.setItem('high score', 0)
+    }
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
