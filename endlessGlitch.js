@@ -1,8 +1,4 @@
 if(storyMode === false){
-    firstMessageFromRealWorld.style.display='block'
-
-
-    firstMessageFromRealWorld.style.display = 'none'
 
 let powerUpMode = false
 let shieldPwrUp = false
