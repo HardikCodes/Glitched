@@ -1,36 +1,7 @@
 if(storyMode === false){
     firstMessageFromRealWorld.style.display='block'
 
-setTimeout(() =>{
-    setTimeout(() => {
-        monsters.forEach((index)=> {
-            monsters.splice(index,1)
-        });
-        cancelAnimationFrame(animationId)
 
-        secondMessage.style.display = 'block'
-        setTimeout(() => {
-            secondMessage.style.display = 'none'
-            thirdMessage.style.display = 'block'
-            setTimeout(() => {
-                thirdMessage.style.display ='none'
-                fourthMessage.style.display ='block'
-                setTimeout(() => {
-                    fourthMessage.style.display ='none'
-                    fifthMessage.style.display = 'block'
-                    setTimeout(() =>{
-                        fifthMessage.style.display ='none'
-                        sixthMessage.style.display ='block'
-                        setTimeout(() => {
-                            powerUpMode = true
-                            animate()
-                            sixthMessage.style.display ='none'
-                        })
-                    },20000)
-                },10000)
-            },10000)
-        },5000)
-    },300000)
     firstMessageFromRealWorld.style.display = 'none'
 
 let powerUpMode = false
@@ -381,5 +352,4 @@ if(i >=3){
 
 animate()
 spawnMonsters()
-},18)
 }
