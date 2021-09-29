@@ -61,7 +61,7 @@ setTimeout(() =>{
                                         seventhMessage.style.display ='none'
                                     },5000);
                                 },3500);
-                            },180000)
+                            },18)
                         })
                     },2000)
                 },13000)
