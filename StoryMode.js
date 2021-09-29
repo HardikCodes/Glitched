@@ -1,4 +1,5 @@
 if(storyMode === true){
+    
     firstMessageFromRealWorld.style.display='block'
 
 setTimeout(() =>{
@@ -22,12 +23,48 @@ setTimeout(() =>{
                         fifthMessage.style.display ='none'
                         sixthMessage.style.display ='block'
                         setTimeout(() => {
-                            powerUpMode = true
+                            tripleShootPwrUp = true
                             animate()
                             sixthMessage.style.display ='none'
+                            setTimeout(() => {
+                                seventhMessage.style.display = 'block'
+                                clearInterval(spawnMonstersID)
+                                setInterval(() => {
+                                    if(numberOfMonstersSpawnedInBossMode < 50){
+                                    const radius = Math.random() * 350 + 10
+                                    let x 
+                                    let y 
+                            
+                                    if (Math.random() < 0.5){
+                                        x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
+                                        y = Math.random() * canvas.height
+                                    }else{
+                                        x = Math.random() * canvas.width
+                                        y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+                                    }
+                            
+                                    const color = `hsl(${Math.random()*360},${Math.random()*100}%,50%)`
+                            
+                                    const angle = Math.atan2(canvas.height/2 - y , canvas.width/2 - x)
+                                
+                                    let velocity = {
+                                        x:Math.cos(angle)*55/radius,
+                                        y:Math.sin(angle)*55/radius
+                                    }
+                            
+                                    monsters.push(new Monster(x,y,radius,color,velocity))
+                                    numberOfMonstersSpawnedInBossMode += 1
+                                    c.fillStyle ='rgba(24,0,36,0.1)'
+                                    c.fillRect(0,0,canvas.width,canvas.height)
+                                    }
+                                    setTimeout(() => {
+                                        seventhMessage.style.display ='none'
+                                    },5000);
+                                },3500);
+                            },180000)
                         })
-                    },20000)
-                },10000)
+                    },2000)
+                },13000)
             },10000)
         },5000)
     },300000)
@@ -168,7 +205,7 @@ const specialBullets = []
 const monsters = []
 
 function spawnMonsters() {
-    setInterval(() => {
+    spawnMonstersId = setInterval(() => {
         const radius = Math.random() * (70 - 10) + 10
         let x 
         let y 
@@ -195,14 +232,18 @@ function spawnMonsters() {
 }
 
 function animate(){
+    c.fillStyle ='rgba(0,0,0,0.1)'
+    c.fillRect(0,0,canvas.width,canvas.height)
+
     c.font = "23px Comic Sans MS";
     c.fillStyle = 'white'
     c.fillText(`Time survived: ${parseInt(time)} seconds`, 10, 50);
 
     animationId = requestAnimationFrame(animate)
-    c.fillStyle ='rgba(0,0,0,0.1)'
-    c.fillRect(0,0,canvas.width,canvas.height)
+
+
     player.draw()
+
     if(powerUpMode === true){
         playerPowerUp.draw()
     }
@@ -374,5 +415,5 @@ if(i >=3){
 
         animate()
         spawnMonsters()
-    },18000)
+    },10000)
 }
