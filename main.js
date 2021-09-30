@@ -8,6 +8,7 @@ const thirdMessage = document.getElementById('third-message')
 const fourthMessage = document.getElementById('4th-message')
 const fifthMessage = document.getElementById('5th-message')
 const sixthMessage = document.getElementById('6th-message')
+const seventhMessage = document.getElementById('7th-message')
 
 let playAudio = confirm('Would you like to play with sound effects')
 let invinceibleMode = false
@@ -17,4 +18,8 @@ let storyMode = confirm('would you like to play with storyline or play endless m
 let powerUpMode = false
 let shieldPwrUp = false
 let tripleShootPwrUp = false
+let shockwavePWRUp = false
 let animationId
+let bossLevel = false
+let spawnMonstersID
+let numberOfMonstersSpawnedInBossMode = 0
