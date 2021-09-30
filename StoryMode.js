@@ -32,7 +32,6 @@ setTimeout(() =>{
                                     powerUpMode = false
                                 },15000)
                                 seventhMessage.style.display = 'block'
-                                bossLevel = true
                                 clearInterval(spawnMonstersID)
                                 setInterval(() => {
                                     if(numberOfMonstersSpawnedInBossMode < 50){
@@ -59,7 +58,12 @@ setTimeout(() =>{
                             
                                     monsters.push(new Monster(x,y,radius,color,velocity))
                                     numberOfMonstersSpawnedInBossMode += 1
+                                    c.fillStyle ='rgba(24,0,36,0.5)'
+                                    c.fillRect(0,0,canvas.width,canvas.height)
                                     }
+                                    setInterval(() => {
+                                        tripleShootPwrUp = true
+                                    }, 25000);
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
                                     },5000);
@@ -238,12 +242,7 @@ function spawnMonsters() {
 function animate(){
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
-    if(bossLevel === true){
-        c.fillStyle ='rgba(0,0,0,0.1)'
-        c.fillRect(0,0,canvas.width,canvas.height)
-        c.fillStyle ='rgba(24,0,36,0.1)'
-        c.fillRect(0,0,canvas.width,canvas.height)
-    }
+
 
     c.font = "23px Comic Sans MS";
     c.fillStyle = 'white'
@@ -426,9 +425,7 @@ if(i >=3){
                 if(Math.round(Math.random()*200) === 200){
                     tripleShootPwrUp = true
                 setTimeout(() => {
-                    if(bossLevel = false){
                     tripleShootPwrUp = false
-                    }
                 }, 25000);
                 }
             }, 1000);
