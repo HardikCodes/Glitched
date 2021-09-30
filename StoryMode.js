@@ -27,11 +27,16 @@ setTimeout(() =>{
                             animate()
                             sixthMessage.style.display ='none'
                             setTimeout(() => {
+                                powerUpMode = true
+                                setTimeout(() => {
+                                    powerUpMode = false
+                                },15000)
                                 seventhMessage.style.display = 'block'
+                                bossLevel = true
                                 clearInterval(spawnMonstersID)
                                 setInterval(() => {
                                     if(numberOfMonstersSpawnedInBossMode < 50){
-                                    const radius = Math.random() * 350 + 10
+                                    const radius = Math.random() * 800 + 10
                                     let x 
                                     let y 
                             
@@ -54,17 +59,15 @@ setTimeout(() =>{
                             
                                     monsters.push(new Monster(x,y,radius,color,velocity))
                                     numberOfMonstersSpawnedInBossMode += 1
-                                    c.fillStyle ='rgba(24,0,36,0.1)'
-                                    c.fillRect(0,0,canvas.width,canvas.height)
                                     }
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
                                     },5000);
-                                },3500);
-                            },18)
+                                },5000);
+                            },1)
                         })
-                    },2000)
-                },13000)
+                    },13000)
+                },7000)
             },10000)
         },5000)
     },300000)
@@ -199,6 +202,7 @@ const playerPowerUp = new Player(x,y,10,'blue')
 const tripleShooterPlayer = new Player(x,y,10,'green')
 const sheildPlayer = new Player(x,y,10,'rgb(0, 255, 255)')
 const invinciblePlayer = new Player(x,y,10,'#FFD700')
+const shockwavePWRUpPlayer = new Player(x,y,10,'rgb(232, 172, 172)')
 
 const bullets = []
 const specialBullets = []
@@ -234,6 +238,12 @@ function spawnMonsters() {
 function animate(){
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
+    if(bossLevel === true){
+        c.fillStyle ='rgba(0,0,0,0.1)'
+        c.fillRect(0,0,canvas.width,canvas.height)
+        c.fillStyle ='rgba(24,0,36,0.1)'
+        c.fillRect(0,0,canvas.width,canvas.height)
+    }
 
     c.font = "23px Comic Sans MS";
     c.fillStyle = 'white'
@@ -257,6 +267,10 @@ function animate(){
 
     if(invinceibleMode === true){
         invinciblePlayer.draw()
+    }
+
+    if (shockwavePWRUp === true){
+        shockwavePWRUpPlayer.draw()
     }
     monsters.forEach((monster,index) => {
         monster.update()
@@ -285,7 +299,10 @@ function animate(){
                 if (monster.radius - 10 > 10){
                     gsap.to(monster, {radius:monster.radius-5})
                     if(tripleShootPwrUp === true){
-                      gsap.to(monster , {radius:monster.radius -10})
+                      gsap.to(monster , {radius:monster.radius -15})
+                    }
+                    if(shockwavePWRUp === true){
+                        gsap.to(monster,{radius:monster.radius - 17})
                     }
                     setTimeout(() => {
                         bullets.splice(bulletIndex ,1)
@@ -330,7 +347,6 @@ if(i >=3){
 
     addEventListener('click',() =>{
         const angle = Math.atan2(event.clientY-canvas.height/2, event.clientX-canvas.width/2)
-        
         const velocity = {
             x:Math.cos(angle)*5,
             y:Math.sin(angle)*5
@@ -340,6 +356,8 @@ if(i >=3){
         bullets.push(new Bullet(canvas.width/2,canvas.height/2,5,'white',velocity))
       }else if(tripleShootPwrUp === true){
         bullets.push(new Bullet(canvas.width/2,canvas.height/2,5,'rgb(0,255,0)',velocity))
+      }else if(shieldPwrUp === true){
+          bullets.push(new Bullet(canvas.width/2,canvas.height/2,0.5,'rgba(232, 172, 172, 1)',velocity))
       }
       if(playAudio === true){
         clickAudio.play()
@@ -408,7 +426,9 @@ if(i >=3){
                 if(Math.round(Math.random()*200) === 200){
                     tripleShootPwrUp = true
                 setTimeout(() => {
+                    if(bossLevel = false){
                     tripleShootPwrUp = false
+                    }
                 }, 25000);
                 }
             }, 1000);
