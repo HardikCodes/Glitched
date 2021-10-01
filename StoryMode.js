@@ -34,8 +34,8 @@ setTimeout(() =>{
                                 seventhMessage.style.display = 'block'
                                 clearInterval(spawnMonstersID)
                                 setInterval(() => {
-                                    if(numberOfMonstersSpawnedInBossMode < 50){
-                                    const radius = Math.random() * 800 + 10
+                                    if(numberOfMonstersSpawnedInBossMode < 100){
+                                    const radius = Math.random() * 800 + 100
                                     let x 
                                     let y 
                             
@@ -66,7 +66,7 @@ setTimeout(() =>{
                                     }, 25000);
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
-                                    },5000);
+                                    },3600);
                                 },5000);
                             },1)
                         })
