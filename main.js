@@ -23,3 +23,9 @@ let animationId
 let bossLevel = false
 let spawnMonstersID
 let numberOfMonstersSpawnedInBossMode = 0
+
+function randomNum(min, max){
+    let num = Math.random() * (max - min) + min;
+
+    return Math.floor(num);
+};
