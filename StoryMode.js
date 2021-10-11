@@ -35,7 +35,7 @@ setTimeout(() =>{
                                 },15000)
                                 seventhMessage.style.display = 'block'
                                 setInterval(() => {
-                                    if(numberOfMonstersSpawnedInBossMode < 1){
+                                    if(numberOfMonstersSpawnedInBossMode < 100){
                                     const radius = Math.random() * 800 + 600
                             
                                     if (Math.random() < 0.5){
@@ -59,10 +59,6 @@ setTimeout(() =>{
                                     numberOfMonstersSpawnedInBossMode += 1
                                     c.fillStyle ='rgba(24,0,36,0.5)'
                                     c.fillRect(0,0,canvas.width,canvas.height)
-                                    }else{
-                                        drawBoss = true
-                                    }
-
                                         setInterval(() => {
                                             bossHenchmanspawner = false
                                             const radius = 10
@@ -82,6 +78,11 @@ setTimeout(() =>{
                                             monsters.push(new Monster(x,y,radius,color,velocity))
                                 
                                             },10000)
+                                    }else{
+                                        drawBoss = true
+                                    }
+
+                                        
                                     
 
                                     setInterval(() => {
@@ -97,7 +98,7 @@ setTimeout(() =>{
                 },7000)
             },10000)
         },5000)
-    },300000)
+    },300)
     firstMessageFromRealWorld.style.display = 'none'
 
 
