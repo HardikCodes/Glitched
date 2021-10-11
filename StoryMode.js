@@ -97,7 +97,7 @@ setTimeout(() =>{
                 },7000)
             },10000)
         },5000)
-    },300)
+    },300000)
     firstMessageFromRealWorld.style.display = 'none'
 
 
@@ -502,7 +502,7 @@ if(i >=3){
 
         animate()
         spawnMonsters()
-    },10)
+    },12000)
 
 }
 
