@@ -1,4 +1,6 @@
 if(storyMode === true){
+
+
     
     firstMessageFromRealWorld.style.display='block'
 
@@ -32,12 +34,9 @@ setTimeout(() =>{
                                     powerUpMode = false
                                 },15000)
                                 seventhMessage.style.display = 'block'
-                                clearInterval(spawnMonstersID)
                                 setInterval(() => {
-                                    if(numberOfMonstersSpawnedInBossMode < 100){
-                                    const radius = Math.random() * 800 + 100
-                                    let x 
-                                    let y 
+                                    if(numberOfMonstersSpawnedInBossMode < 1){
+                                    const radius = Math.random() * 800 + 600
                             
                                     if (Math.random() < 0.5){
                                         x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
@@ -60,17 +59,41 @@ setTimeout(() =>{
                                     numberOfMonstersSpawnedInBossMode += 1
                                     c.fillStyle ='rgba(24,0,36,0.5)'
                                     c.fillRect(0,0,canvas.width,canvas.height)
+                                    }else{
+                                        drawBoss = true
                                     }
+
+                                        setInterval(() => {
+                                            bossHenchmanspawner = false
+                                            const radius = 10
+                                            let x = canvas.width
+                                            let y = randomNum(canvas.height/2-150,canvas.height/2+150)
+                                    
+                                    
+                                            const color = `rgb(24,0,36)`
+                                    
+                                            const angle = Math.atan2(canvas.height/2 - y , canvas.width/2 - x)
+                                        
+                                            let velocity = {
+                                                x:Math.cos(angle)*50/radius,
+                                                y:Math.sin(angle)*50/radius
+                                            }
+                                    
+                                            monsters.push(new Monster(x,y,radius,color,velocity))
+                                
+                                            },10000)
+                                    
+
                                     setInterval(() => {
                                         tripleShootPwrUp = true
                                     }, 25000);
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
-                                    },3600);
+                                    },3700);
                                 },5000);
                             },1)
                         })
-                    },13000)
+                    },1300)
                 },7000)
             },10000)
         },5000)
@@ -80,6 +103,38 @@ setTimeout(() =>{
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
+
+let drawBoss = false
+
+
+class OnesAndZeros{
+    constructor(x,y,color){
+        this.x = x 
+        this.y =y
+        this.color = color 
+    }
+
+    draw(){
+        c.font = "23px Ariel";
+        c.fillStyle = 'green'
+        c.fillText(`${parseInt(Math.random())}`,this.x,this.y);
+    }
+}
+class Boss {
+    constructor(x,y,sideLenght,color){
+        this.x = x 
+        this.y =y
+        this.sideLenght = sideLenght
+        this.color = color 
+    }
+
+    draw(){
+        c.beginPath()
+        c.rect(this.x,this.y,this.sideLenght,this.sideLenght)
+        c.fillStyle = this.color
+        c.fill()
+    }
+}
 
 class GlitchDrift{
     constructor(x,y,sideLenght,color){
@@ -198,22 +253,32 @@ class Particle {
     }
 }
 
-
-const x = innerWidth / 2
-const y = innerHeight / 2
+let x = innerWidth / 2
+let y = innerHeight / 2
 const player = new Player(x,y,10,'white')
 const playerPowerUp = new Player(x,y,10,'blue')
 const tripleShooterPlayer = new Player(x,y,10,'green')
 const sheildPlayer = new Player(x,y,10,'rgb(0, 255, 255)')
 const invinciblePlayer = new Player(x,y,10,'#FFD700')
 const shockwavePWRUpPlayer = new Player(x,y,10,'rgb(232, 172, 172)')
+const boss = new Boss(canvas.width-300,canvas.height/2-150,300,'rgb(24,0,36)')
+const onesAndZeros = []
 
 const bullets = []
 const specialBullets = []
 const monsters = []
 
+    setInterval(() => {
+        let oneZeroY = canvas.height
+        let oneZeroX = canvas.width
+        onesAndZeros.push(new OnesAndZeros(oneZeroX,oneZeroY,'green'))
+        onesAndZeros.forEach((oneAndZero) => {
+            oneAndZero.draw()
+        })
+    },500)
+
 function spawnMonsters() {
-    spawnMonstersId = setInterval(() => {
+        setInterval(() => {
         const radius = Math.random() * (70 - 10) + 10
         let x 
         let y 
@@ -242,6 +307,11 @@ function spawnMonsters() {
 function animate(){
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
+
+    if(drawBoss === true){
+        boss.draw()
+        }
+        
 
 
     c.font = "23px Comic Sans MS";
@@ -432,5 +502,7 @@ if(i >=3){
 
         animate()
         spawnMonsters()
-    },10000)
+    },10)
+
 }
+
