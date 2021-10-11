@@ -97,7 +97,7 @@ setTimeout(() =>{
                 },7000)
             },10000)
         },5000)
-    },300000)
+    },300)
     firstMessageFromRealWorld.style.display = 'none'
 
 
